@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Quest</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('https://images6.alphacoders.com/125/1258017.png') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            overflow-x: hidden;
+        }
+        .container {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: rgba(0, 0, 0, 0.6);
+            box-sizing: border-box;
+        }
+        .form-box {
+            background: rgba(0, 0, 50, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            max-width: 500px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .form-box h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .form-box form {
+            display: flex;
+            flex-direction: column;
+        }
+        .form-box form label {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        .form-box form input,
+        .form-box form textarea {
+            font-size: 1em;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .form-box form button {
+            font-size: 1.2em;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background: #05af21;
+            color: white;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .form-box form button:hover {
+            background: #444;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-box">
+            <h1>Add Quest</h1>
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Add Quest</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

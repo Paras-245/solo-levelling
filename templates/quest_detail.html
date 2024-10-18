@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Solo Leveling Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: url('https://images6.alphacoders.com/125/1258017.png') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+      overflow-x: hidden;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .header {
+      background: rgba(0, 0, 50, 0.8);
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      left: 0;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+      box-sizing: border-box;
+      z-index: 1000;
+    }
+
+    .header h1 {
+      font-size: 1.5em;
+      margin: 0;
+      color: #05af21;
+    }
+
+    .header .user-info {
+      display: flex;
+      align-items: center;
+      margin: 0 auto;
+    }
+
+    .header .user-info p {
+      margin: 0 10px;
+      font-size: 1.2em;
+      color: #05af21;
+      font-weight: bold;
+      font-size: 35px;
+    }
+
+    .header .logout-btn {
+      color: #05af21;
+      text-decoration: none;
+      font-size: 1em;
+      padding: 5px 10px;
+      border: 1px solid #05af21;
+      border-radius: 5px;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .header .logout-btn:hover {
+      background: #05af21;
+      color: white;
+    }
+
+
+    .quest_details {
+      background: rgba(0, 0, 50, 0.8);
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+      width: 50%;
+      /* max-width: 300px; */
+      box-sizing: border-box;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="header">
+    <h1>Solo Leveling</h1>
+      <div class="user-info">
+        <p>Welcome, {{ request.user.username }}</p>
+      </div>
+      <a href="{% url 'logout' %}" class="logout-btn">Logout</a>
+  </div>
+  <div class="container">
+    <div class="quest_details">
+      <h1>{{ quest.title }}</h1>
+      <p>{{ quest.objective }}</p>
+      <h2>Tasks</h2>
+      <ul>
+        {% for task in quest.tasks %}
+        <li>
+          <form method="post">
+            {% csrf_token %}
+            <label>
+              <input type="checkbox" name="completed_task" value="{{ task }}" {% if task in user_quest.completed_tasks %}checked disabled{% endif %}>
+              {{ task }}
+            </label>
+            <button type="submit">Complete</button>
+          </form>
+        </li>
+        {% endfor %}
+      </ul>
+      {% if user_quest.is_completed %}
+      <p>Quest Completed!</p>
+      {% endif %}
+    </div>
+  </div>
+</body>
+
+</html>

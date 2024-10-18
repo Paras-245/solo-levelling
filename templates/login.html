@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solo Leveling - Login</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: url('https://images6.alphacoders.com/125/1258017.png') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-box {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .error-message {
+            background: #ff4d4d;
+            color: white;
+            padding: 10px;
+            list-style: none;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 1.1em;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            padding: 10px;
+            margin: 5px 0;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            width: calc(100% - 22px);
+        }
+
+        .errorlist {
+            color: #ff4d4d;
+            list-style: none;
+            padding: 0;
+            margin: 5px 0;
+        }
+
+        button {
+            padding: 10px;
+            margin: 20px 0;
+            border: none;
+            border-radius: 5px;
+            background: #05af21;
+            color: white;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #444;
+        }
+
+        .signup-link {
+            color: #05af21;
+            text-decoration: none;
+            margin-top: 10px;
+            display: block;
+            transition: color 0.3s;
+        }
+
+        .signup-link:hover {
+            color: #ddd;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="login-box">
+            <h1>Login</h1>
+            <form method="POST">
+                {% csrf_token %}
+                {% if form.non_field_errors %}
+                <div class="error-message">
+                    <ul class="error-message">
+                        {% for error in form.non_field_errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+                {% for field in form %}
+                <div class="form-group">
+                    {{ field.label_tag }}
+                    {{ field }}
+                    {% if field.errors %}
+                    <ul class="errorlist">
+                        {% for error in field.errors %}
+                        <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
+                {% endfor %}
+                <button type="submit">Login</button>
+                <a href="{% url 'signup' %}" class="signup-link">Don't have an account? Create one</a>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
